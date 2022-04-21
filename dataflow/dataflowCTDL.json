@@ -12,13 +12,45 @@
 					"name": "SQL"
 				}
 			],
-			"sinks": [],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "datasetsql",
+						"type": "DatasetReference"
+					},
+					"name": "sink1"
+				}
+			],
 			"transformations": [],
 			"scriptLines": [
-				"source(allowSchemaDrift: true,",
+				"source(output(",
+				"          UserId as integer,",
+				"          ProductId as integer,",
+				"          ItemsPurchasedLast12Months as integer,",
+				"          IsTopProduct as boolean,",
+				"          IsPreferredProduct as boolean",
+				"     ),",
+				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     isolationLevel: 'READ_UNCOMMITTED',",
-				"     format: 'table') ~> SQL"
+				"     format: 'table') ~> SQL",
+				"SQL sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     input(",
+				"          UserId as integer,",
+				"          ProductId as integer,",
+				"          ItemsPurchasedLast12Months as integer,",
+				"          IsTopProduct as boolean,",
+				"          IsPreferredProduct as boolean",
+				"     ),",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     format: 'table',",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError') ~> sink1"
 			]
 		}
 	}
