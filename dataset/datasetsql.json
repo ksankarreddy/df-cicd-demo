@@ -7,7 +7,31 @@
 		},
 		"annotations": [],
 		"type": "AzureSqlTable",
-		"schema": [],
+		"schema": [
+			{
+				"name": "UserId",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "ProductId",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "ItemsPurchasedLast12Months",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "IsTopProduct",
+				"type": "bit"
+			},
+			{
+				"name": "IsPreferredProduct",
+				"type": "bit"
+			}
+		],
 		"typeProperties": {
 			"schema": "wwi",
 			"table": "UserTopProductPurchases"
